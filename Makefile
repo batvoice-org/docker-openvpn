@@ -2,6 +2,7 @@ PACKAGE ?= docker-openvpn
 DOCKER ?= $(shell which docker || echo docker)
 DOCKER_IMAGE ?= 367353094751.dkr.ecr.eu-west-1.amazonaws.com/$(shell echo $(PACKAGE) | tr A-Z a-z)
 VERSION ?= $(shell git describe --abbrev=8 --always HEAD)
+DOCKER_TAG ?= $(VERSION)
 DOCKER_BUILD ?= $(DOCKER) image build
 DOCKER_PUSH ?= $(DOCKER) image push
 DOCKER_VARY ?= 
