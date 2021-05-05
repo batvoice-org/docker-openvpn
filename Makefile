@@ -2,10 +2,10 @@ PACKAGE ?= docker-openvpn
 DOCKER ?= $(shell which docker || echo docker)
 DOCKER_IMAGE ?= 367353094751.dkr.ecr.eu-west-1.amazonaws.com/$(shell echo $(PACKAGE) | tr A-Z a-z)
 VERSION ?= $(shell git describe --abbrev=8 --always HEAD)
-DOCKER_TAG ?= $(VERSION)
+DOCKER_VARY ?= 
+DOCKER_TAG ?= $(VERSION)$(if $(DOCKER_VARY),-$(DOCKER_VARY))
 DOCKER_BUILD ?= $(DOCKER) image build
 DOCKER_PUSH ?= $(DOCKER) image push
-DOCKER_VARY ?= 
 DOCKER_BUILD_FILE ?= Dockerfile$(if $(DOCKER_VARY),.$(DOCKER_VARY))
 DOCKER_IMAGE ?= 367353094751.dkr.ecr.eu-west-1.amazonaws.com/batvoice$(if $(DOCKER_VARY),-$(DOCKER_VARY))
 DOCKER_BUILD_OPTIONS ?= --build-arg IMAGE=$(DOCKER_IMAGE)
