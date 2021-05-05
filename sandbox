@@ -1,0 +1,31 @@
+#! /bin/bash
+
+# Exit if something fails
+set -e
+
+# Show everything
+set -x
+
+# Set version
+export VERSION=`git describe --abbrev=8 --always HEAD`
+
+git diff-index --quiet --cached HEAD -- || {
+  echo "Every change must be commited before an image can be securely built"
+  exit 1
+}
+
+# Create temporary sandbox and trap removal at exit
+SANDBOX=`mktemp -d`
+function cleanup {
+  echo "Cleanup - removing $SANDBOX"
+  rm  -r $SANDBOX
+}
+trap cleanup EXIT
+
+# Release path
+RELEASE=$SANDBOX/release
+git archive $RELEASE.tar
+tar xf $RELEASE.tar -C $SANDBOX
+
+# Execute
+(cd $RELEASE; "$@")
