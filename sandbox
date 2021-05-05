@@ -25,7 +25,6 @@ trap cleanup EXIT
 # Release path
 RELEASE=$SANDBOX/release
 git archive --format=tar HEAD > $RELEASE.tar
-cp $RELEASE.tar /home/nicolas
 tar xf $RELEASE.tar -C $SANDBOX
 
 # Execute
