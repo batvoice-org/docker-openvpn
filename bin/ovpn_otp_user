@@ -30,5 +30,5 @@ if [ "$2" == "interactive" ]; then
 else
     # Skip confirmation if not running in interctive mode. Essential for integration tests.
     google-authenticator --time-based --disallow-reuse --force --rate-limit=3 --rate-time=30 --window-size=3 \
-        -l "${1}@${OVPN_CN}" -s /etc/openvpn/otp/${1}.google_authenticator --no-confirm
+        -l "${1}@${OVPN_CN}" -s /etc/openvpn/otp/${1}.google_authenticator
 fi
